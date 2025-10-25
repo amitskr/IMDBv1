@@ -1,25 +1,41 @@
-import MovieCard from "../components/MovieCard"
+import MovieCard from "../components/MovieCard";
+import { useState } from "react";
 
-function Home(){
-    const movies = [
-        {id:1, title: "John Wick", relese_date: "2012"},
-        {id:2, title: "Terminator", relese_date: "2020"},
-        {id:3, title: "Toy Story", relese_date: "2005"},
-    ];
+function Home() {
 
-    const handleSearch = () => {
+  const [searchQuery, setSearchQuery] = useState("");
 
-    }
+  const movies = [
+    { id: 1, title: "John Wick", relese_date: "2012" },
+    { id: 2, title: "Terminator", relese_date: "2020" },
+    { id: 3, title: "Toy Story", relese_date: "2005" },
+  ];
 
-    return (<div className="home">
-        <form onSubmit={handleSearch} className="search-form">
-            <input type="text" placeholder="Search for movies" className="search-input"/>
-        </form>
-        <div className="movies-grid">
-            {movies.map((movie => <MovieCard movie = {movie} key={movie.id}/>))}
-        </div>
+  const handleSearch = (e) => {
+    e.preventDefault()
+    alert(searchQuery)
+    setSearchQuery("")
+  };
+
+  return (
+    <div className="home">
+      <form onSubmit={handleSearch} className="search-form">
+        <input
+          type="text"
+          placeholder="Search for movies"
+          className="search-input"
+          value = {searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button type="submit" className="submit-button">Search</button>
+      </form>
+      <div className="movies-grid">
+        {movies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
     </div>
-    );
+  );
 }
 
-export default Home
+export default Home;
